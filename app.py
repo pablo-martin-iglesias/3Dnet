@@ -167,18 +167,23 @@ def submit_printer_request():
             characteristics = request.form['characteristics']
             community = request.form['community']
             province = request.form['province']
-            materials = ','.join(request.form.getlist('materials'))
+
+            # Procesar materiales seleccionados
+            main_material = request.form['main_material']
+            sub_material = request.form.get('sub_material', '')
             other_material = request.form.get('other_material', '')
 
-            if "Other" in materials:
-                materials += f",{other_material}"
+            # Determinar el material final
+            if main_material == "Other":
+                materials = other_material
+            else:
+                materials = sub_material or main_material
 
-            # Validar que todos los campos importantes tienen datos
-            if not characteristics or not community or not province or not materials:
-                flash("All fields are required.")
+            if not materials:
+                flash("You must select or specify at least one material.")
                 return redirect(url_for('submit_printer_request'))
 
-            # Guardar la solicitud en la base de datos
+            # Guardar en la base de datos
             conn = sqlite3.connect('database.db')
             cursor = conn.cursor()
             cursor.execute('''
@@ -195,6 +200,8 @@ def submit_printer_request():
     else:
         flash("Access denied!")
         return redirect(url_for('login'))
+
+
 
 
     
@@ -226,10 +233,18 @@ def admin_panel():
 
         conn.close()
 
+        # Revisar solicitudes de printers para validar datos
+        for printer_request in printer_requests:
+            if not printer_request[2]:  # Si materials está vacío
+                flash(f"Printer request ID {printer_request[0]} has no materials specified.")
+
         return render_template('admin_panel.html', printer_requests=printer_requests, client_requests=client_requests)
     else:
         flash("Access denied!")
         return redirect(url_for('login'))
+
+
+
 
 
 

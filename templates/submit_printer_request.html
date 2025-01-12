@@ -11,20 +11,29 @@
         <label for="characteristics">Printer Characteristics:</label>
         <textarea id="characteristics" name="characteristics" required></textarea>
 
-        <!-- Campo de selección de materiales -->
-        <label for="materials">Select Materials Supported:</label>
-        <select id="materials" name="materials[]" multiple required>
-            <option value="PLA">PLA</option>
-            <option value="ABS">ABS</option>
-            <option value="PETG">PETG</option>
+        <!-- Selección de Material -->
+        <label for="main-material">Select Main Material:</label>
+        <select id="main-material" name="main_material" onchange="updateSubMaterials()" required>
+            <option value="" disabled selected>Select Material</option>
+            <option value="Plastic">Plastic</option>
+            <option value="Metal">Metal</option>
+            <option value="Resin">Resin</option>
             <option value="Other">Other</option>
         </select>
 
-        <div id="other-material" style="display: none;">
-            <label for="other_material">Specify Other Material:</label>
-            <input type="text" id="other_material" name="other_material">
+        <div id="sub-material-div" style="display: none;">
+            <label for="sub-material">Select Specific Type:</label>
+            <select id="sub-material" name="sub_material">
+                <option value="" disabled selected>Select Submaterial</option>
+            </select>
         </div>
 
+        <div id="other-material-div" style="display: none;">
+            <label for="other_material">Specify Other Material:</label>
+            <input type="text" id="other-material" name="other_material">
+        </div>
+
+        <!-- Selección de Comunidad y Provincia -->
         <label for="community">Select Community:</label>
         <select id="community" name="community" required onchange="updateProvinces()">
             <option value="" disabled selected>Select Community</option>
@@ -60,13 +69,42 @@
     <a href="/printer-dashboard">Back to Dashboard</a>
 
     <script>
-        // Mostrar campo "Otro" si se selecciona "Other"
-        document.getElementById('materials').addEventListener('change', function() {
-            const otherMaterialDiv = document.getElementById('other-material');
-            otherMaterialDiv.style.display = Array.from(this.selectedOptions).find(o => o.value === 'Other') ? 'block' : 'none';
-        });
+        // Materiales y submateriales disponibles
+        const subMaterials = {
+            "Plastic": ["PLA", "ABS", "PETG"],
+            "Metal": ["Steel", "Aluminum", "Titanium"],
+            "Resin": ["Standard Resin", "Tough Resin", "Flexible Resin"]
+        };
 
-        // Actualizar provincias dinámicamente
+        function updateSubMaterials() {
+            const mainMaterial = document.getElementById('main-material').value;
+            const subMaterialDiv = document.getElementById('sub-material-div');
+            const subMaterialSelect = document.getElementById('sub-material');
+            const otherMaterialDiv = document.getElementById('other-material-div');
+
+            if (mainMaterial === "Other") {
+                subMaterialDiv.style.display = "none";
+                otherMaterialDiv.style.display = "block";
+            } else {
+                subMaterialDiv.style.display = "block";
+                otherMaterialDiv.style.display = "none";
+
+                // Limpiar opciones anteriores
+                subMaterialSelect.innerHTML = '<option value="" disabled selected>Select Submaterial</option>';
+
+                // Agregar opciones específicas
+                if (subMaterials[mainMaterial]) {
+                    subMaterials[mainMaterial].forEach(sub => {
+                        const option = document.createElement('option');
+                        option.value = sub;
+                        option.textContent = sub;
+                        subMaterialSelect.appendChild(option);
+                    });
+                }
+            }
+        }
+
+        // Provincias según la comunidad seleccionada
         const provinces = {
             "Andalusia": ["Almería", "Cádiz", "Córdoba", "Granada", "Huelva", "Jaén", "Málaga", "Sevilla"],
             "Aragon": ["Huesca", "Teruel", "Zaragoza"],
@@ -97,7 +135,7 @@
             // Limpiar opciones anteriores
             provinceSelect.innerHTML = '<option value="" disabled selected>Select Province</option>';
 
-            // Agregar las nuevas opciones
+            // Agregar nuevas opciones
             if (provinces[selectedCommunity]) {
                 provinces[selectedCommunity].forEach(province => {
                     const option = document.createElement('option');
