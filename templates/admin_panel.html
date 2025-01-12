@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+</head>
+<body>
+    <h1>Admin Panel</h1>
+
+    <!-- Tabla de Printer Requests -->
+    <h2>Printer Requests</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Characteristics</th>
+            <th>Materials</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        {% for request in printer_requests %}
+        <tr>
+            <td>{{ request[0] }}</td> <!-- ID -->
+            <td>{{ request[1] }}</td> <!-- Characteristics -->
+            <td>{{ request[2] }}</td> <!-- Materials -->
+            <td>{{ request[3] }}</td> <!-- Location -->
+            <td>{{ request[4] }}</td> <!-- Status -->
+            <td>{{ request[5] }}</td> <!-- Email -->
+            <td>
+                {% if request[4] == "pending" %}
+                <a href="/approve-printer/{{ request[0] }}">Approve</a> |
+                <a href="/reject-printer/{{ request[0] }}">Reject</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Tabla de Client Requests -->
+    <h2>Client Requests</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Requirements</th>
+            <th>Budget</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        {% for request in client_requests %}
+        <tr>
+            <td>{{ request[0] }}</td> <!-- ID -->
+            <td>{{ request[1] }}</td> <!-- Requirements -->
+            <td>${{ request[2] }}</td> <!-- Budget -->
+            <td>{{ request[3] }}</td> <!-- Location -->
+            <td>{{ request[4] }}</td> <!-- Status -->
+            <td>{{ request[5] }}</td> <!-- Email -->
+            <td>
+                {% if request[4] == "pending" %}
+                <a href="/approve-client/{{ request[0] }}">Approve</a> |
+                <a href="/reject-client/{{ request[0] }}">Reject</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="/logout">Logout</a>
+</body>
+</html>

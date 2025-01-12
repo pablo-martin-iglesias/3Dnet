@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Client Request</title>
+</head>
+<body>
+    <h1>Submit Client Request</h1>
+    <form action="/submit-client-request" method="POST">
+        <label for="requirements">Describe Your Requirements:</label>
+        <textarea id="requirements" name="requirements" required></textarea>
+
+        <label for="budget">Estimated Budget:</label>
+        <input type="number" id="budget" name="budget" step="0.01" required>
+
+        <label for="community">Select Community:</label>
+        <select id="community" name="community" required onchange="updateProvinces()">
+            <option value="" disabled selected>Select Community</option>
+            <option value="Andalusia">Andalusia</option>
+            <option value="Aragon">Aragon</option>
+            <option value="Asturias">Asturias</option>
+            <option value="Islas Baleares">Islas Baleares</option>
+            <option value="Canarias">Canarias</option>
+            <option value="Cantabria">Cantabria</option>
+            <option value="Castilla-La Mancha">Castilla-La Mancha</option>
+            <option value="Castilla y León">Castilla y León</option>
+            <option value="Cataluña">Cataluña</option>
+            <option value="Extremadura">Extremadura</option>
+            <option value="Galicia">Galicia</option>
+            <option value="Madrid">Madrid</option>
+            <option value="Murcia">Murcia</option>
+            <option value="Navarra">Navarra</option>
+            <option value="País Vasco">País Vasco</option>
+            <option value="La Rioja">La Rioja</option>
+            <option value="Comunidad Valenciana">Comunidad Valenciana</option>
+            <option value="Ceuta">Ceuta</option>
+            <option value="Melilla">Melilla</option>
+        </select>
+
+        <label for="province">Select Province:</label>
+        <select id="province" name="province" required>
+            <option value="" disabled selected>Select Province</option>
+        </select>
+
+        <label for="materials">Select Materials:</label>
+        <select id="materials" name="materials[]" multiple required onchange="toggleOtherMaterial()">
+            <option value="PLA">PLA</option>
+            <option value="ABS">ABS</option>
+            <option value="PETG">PETG</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <div id="other-material" style="display: none;">
+            <label for="other_material">Specify Other Material:</label>
+            <input type="text" id="other_material" name="other_material">
+        </div>
+
+        <button type="submit">Submit Request</button>
+    </form>
+
+    <script>
+        const provinces = {
+            "Andalusia": ["Almería", "Cádiz", "Córdoba", "Granada", "Huelva", "Jaén", "Málaga", "Sevilla"],
+            "Aragon": ["Huesca", "Teruel", "Zaragoza"],
+            "Asturias": ["Asturias"],
+            "Islas Baleares": ["Mallorca", "Menorca", "Ibiza", "Formentera"],
+            "Canarias": ["Tenerife", "La Gomera", "La Palma", "El Hierro", "Gran Canaria", "Fuerteventura", "Lanzarote"],
+            "Cantabria": ["Cantabria"],
+            "Castilla-La Mancha": ["Albacete", "Ciudad Real", "Cuenca", "Guadalajara", "Toledo"],
+            "Castilla y León": ["Ávila", "Burgos", "León", "Palencia", "Salamanca", "Segovia", "Soria", "Valladolid", "Zamora"],
+            "Cataluña": ["Barcelona", "Girona", "Lleida", "Tarragona"],
+            "Extremadura": ["Badajoz", "Cáceres"],
+            "Galicia": ["A Coruña", "Lugo", "Ourense", "Pontevedra"],
+            "Madrid": ["Madrid"],
+            "Murcia": ["Murcia"],
+            "Navarra": ["Navarra"],
+            "País Vasco": ["Álava", "Guipúzcoa", "Vizcaya"],
+            "La Rioja": ["La Rioja"],
+            "Comunidad Valenciana": ["Alicante", "Castellón", "Valencia"],
+            "Ceuta": ["Ceuta"],
+            "Melilla": ["Melilla"]
+        };
+
+        function updateProvinces() {
+            const communitySelect = document.getElementById('community');
+            const provinceSelect = document.getElementById('province');
+            const selectedCommunity = communitySelect.value;
+
+            // Limpiar opciones anteriores
+            provinceSelect.innerHTML = '<option value="" disabled selected>Select Province</option>';
+
+            // Agregar las nuevas opciones
+            if (provinces[selectedCommunity]) {
+                provinces[selectedCommunity].forEach(province => {
+                    const option = document.createElement('option');
+                    option.value = province;
+                    option.textContent = province;
+                    provinceSelect.appendChild(option);
+                });
+            }
+        }
+
+        function toggleOtherMaterial() {
+            const materialsSelect = document.getElementById('materials');
+            const otherMaterialDiv = document.getElementById('other-material');
+            const selectedOptions = Array.from(materialsSelect.selectedOptions).map(opt => opt.value);
+
+            otherMaterialDiv.style.display = selectedOptions.includes("Other") ? "block" : "none";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matches</title>
+</head>
+<body>
+    <h1>Client-Printer Matches</h1>
+    <table border="1">
+        <tr>
+            <th>Client Requirements</th>
+            <th>Printer Characteristics</th>
+            <th>Printer Materials</th>
+        </tr>
+        {% for match in matches %}
+        <tr>
+            <td>{{ match['client_requirements'] }}</td>
+            <td>{{ match['printer_characteristics'] }}</td>
+            <td>{{ match['printer_materials'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/admin-dashboard">Back to Admin Dashboard</a>
+</body>
+</html>
