@@ -1,0 +1,33 @@
+# Entornos virtuales
+venv/
+env/
+__pycache__/
+
+# Archivos de configuración sensibles
+*.env
+config.py
+
+# Archivos de bases de datos locales
+*.sqlite3
+*.db
+
+# Archivos de caché y configuración local
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Archivos generados por el sistema
+.DS_Store
+Thumbs.db
+
+# Archivos del editor/IDE
+.vscode/
+.idea/
+*.swp
+
+# Archivos de despliegue
+*.bak
+Procfile
+
+.env

@@ -5,8 +5,11 @@ import sqlite3
 from werkzeug.utils import secure_filename
 import os
 
+load_dotenv()
+
+
 app = Flask(__name__)
-app.secret_key = "your_secret_key"
+app.secret_key = os.getenv("SECRET_KEY") 
 
 # Base de datos inicial
 def init_db():
@@ -305,5 +308,7 @@ def reject_client(request_id):
 
 
 if __name__ == '__main__':
-    init_db()
-    app.run(debug=True)
+    PORT = int(os.environ.get('PORT', 5000))  # Puerto que Railway proporciona
+    init_db()  # Inicializa la base de datos
+    app.run(host='0.0.0.0', port=PORT, debug=True)
+
