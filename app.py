@@ -232,6 +232,7 @@ def admin_panel():
         client_requests = cursor.fetchall()
 
         conn.close()
+        
 
         # Revisar solicitudes de printers para validar datos
         for printer_request in printer_requests:
@@ -242,9 +243,6 @@ def admin_panel():
     else:
         flash("Access denied!")
         return redirect(url_for('login'))
-
-
-
 
 
 

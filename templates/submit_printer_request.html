@@ -3,41 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submit Printer Request</title>
+    <title>Nueva impresora</title>
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <h1>Submit Printer Request</h1>
+    <h1>Nueva impresora</h1>
     <form action="/submit-printer-request" method="POST">
-        <label for="characteristics">Printer Characteristics:</label>
+        <label for="characteristics">Añade las caraceterísticas de la imrpresora:</label>
         <textarea id="characteristics" name="characteristics" required></textarea>
 
-        <!-- Selección de Material -->
-        <label for="main-material">Select Main Material:</label>
+        <!-- Material Selection -->
+        <label for="main-material">Selecciona material de uso:</label>
         <select id="main-material" name="main_material" onchange="updateSubMaterials()" required>
-            <option value="" disabled selected>Select Material</option>
-            <option value="Plastic">Plastic</option>
+            <option value="" disabled selected>Selecciona material</option>
+            <option value="Plastic">Plastico</option>
             <option value="Metal">Metal</option>
-            <option value="Resin">Resin</option>
-            <option value="Other">Other</option>
+            <option value="Resin">Resina</option>
+            <option value="Other">Otro</option>
         </select>
 
         <div id="sub-material-div" style="display: none;">
-            <label for="sub-material">Select Specific Type:</label>
+            <label for="sub-material">Selecciona material concreto:</label>
             <select id="sub-material" name="sub_material">
-                <option value="" disabled selected>Select Submaterial</option>
+                <option value="" disabled selected>Selecciona material</option>
             </select>
         </div>
 
         <div id="other-material-div" style="display: none;">
-            <label for="other_material">Specify Other Material:</label>
+            <label for="other_material">Especifica otro material:</label>
             <input type="text" id="other-material" name="other_material">
         </div>
 
-        <!-- Selección de Comunidad y Provincia -->
-        <label for="community">Select Community:</label>
+        <!-- Location Selection -->
+        <label for="community">Selecciona Comunidad:</label>
         <select id="community" name="community" required onchange="updateProvinces()">
-            <option value="" disabled selected>Select Community</option>
-            <option value="Andalusia">Andalusia</option>
+            <option value="" disabled selected>Selecciona Comunidad</option>
+            <option value="Andalusia">Andalucía</option>
             <option value="Aragon">Aragon</option>
             <option value="Asturias">Asturias</option>
             <option value="Islas Baleares">Islas Baleares</option>
@@ -58,18 +59,15 @@
             <option value="Melilla">Melilla</option>
         </select>
 
-        <label for="province">Select Province:</label>
+        <label for="province">Selecciona Provincia:</label>
         <select id="province" name="province" required>
-            <option value="" disabled selected>Select Province</option>
+            <option value="" disabled selected>Selecciona Provincia</option>
         </select>
 
-        <button type="submit">Submit Printer Request</button>
+        <button type="submit">Enviar</button>
     </form>
 
-    <a href="/printer-dashboard">Back to Dashboard</a>
-
     <script>
-        // Materiales y submateriales disponibles
         const subMaterials = {
             "Plastic": ["PLA", "ABS", "PETG"],
             "Metal": ["Steel", "Aluminum", "Titanium"],
@@ -89,22 +87,19 @@
                 subMaterialDiv.style.display = "block";
                 otherMaterialDiv.style.display = "none";
 
-                // Limpiar opciones anteriores
-                subMaterialSelect.innerHTML = '<option value="" disabled selected>Select Submaterial</option>';
+                subMaterialSelect.innerHTML = '<option value="" disabled selected>Selecciona material</option>';
 
-                // Agregar opciones específicas
                 if (subMaterials[mainMaterial]) {
-                    subMaterials[mainMaterial].forEach(sub => {
+                    subMaterials[mainMaterial].forEach(material => {
                         const option = document.createElement('option');
-                        option.value = sub;
-                        option.textContent = sub;
+                        option.value = material;
+                        option.textContent = material;
                         subMaterialSelect.appendChild(option);
                     });
                 }
             }
         }
 
-        // Provincias según la comunidad seleccionada
         const provinces = {
             "Andalusia": ["Almería", "Cádiz", "Córdoba", "Granada", "Huelva", "Jaén", "Málaga", "Sevilla"],
             "Aragon": ["Huesca", "Teruel", "Zaragoza"],
@@ -132,10 +127,8 @@
             const provinceSelect = document.getElementById('province');
             const selectedCommunity = communitySelect.value;
 
-            // Limpiar opciones anteriores
             provinceSelect.innerHTML = '<option value="" disabled selected>Select Province</option>';
 
-            // Agregar nuevas opciones
             if (provinces[selectedCommunity]) {
                 provinces[selectedCommunity].forEach(province => {
                     const option = document.createElement('option');

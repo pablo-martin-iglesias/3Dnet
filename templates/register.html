@@ -4,27 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <h1>Register</h1>
-    <form action="/register" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
+    <header>
+        <h2>3Dnet</h2>
+    </header>
+    <main class="container">
+        <form action="/register" method="POST">
+            <label for="username">Usuario:</label>
+            <input type="text" id="username" name="username" required>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+            <label for="password">Crea una contraseña, recuérdala para poder acceder:</label>
+            <input type="password" id="password" name="password" required>
 
-        <label for="role">Role:</label>
-        <select id="role" name="role" required>
-            <option value="client">Client</option>
-            <option value="printer">Printer</option>
-        </select>
+            <label for="role">Role:</label>
+            <select id="role" name="role" required>
+                <option value="client">Cliente (busco una impresora)</option>
+                <option value="printer">Printer (alquilo el uso de mi impresora)</option>
+            </select>
 
-        <button type="submit">Register</button>
-    </form>
-    <p><a href="/">Back to Home</a></p>
+            <button type="submit" class="btn">Registrarme</button>
+        </form>
+        <a href="/" class="btn">Inicio</a>
+    </main>
+    <footer>
+        
+    </footer>
 </body>
 </html>

@@ -3,12 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Printer Dashboard</title>
+    <title>Login</title>
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <h1>Printer Dashboard</h1>
-    <p>Welcome, Printer! Submit your printer requests.</p>
-    <a href="/submit-printer-request">Submit Printer Request</a>
-    <a href="/logout">Logout</a>
+    <header>
+        <h1>Panel Printer</h1>
+    </header>
+    <main class="container">
+        <section>
+            <h2>Tus impresoras</h2>
+            
+            <a href="/submit-printer-request" class="btn">Subir nueva impresora</a>
+            <a href="/logout" class="btn btn-danger">Cerrar Sesión</a>
+        </section>
+    </main>
+    <footer>
+        
+    </footer>
 </body>
 </html>

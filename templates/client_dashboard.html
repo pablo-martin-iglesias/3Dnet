@@ -4,11 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Client Dashboard</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    
 </head>
 <body>
-    <h1>Client Dashboard</h1>
-    <p>Welcome, Client! Submit your requests for printers.</p>
-    <a href="/submit-client-request">Submit Client Request</a>
-    <a href="/logout">Logout</a>
+    <header>
+        <h1>Panel Cliente</h1>
+    </header>
+    <main class="container">
+        <section>
+            <h2>Tus peticiones</h2>
+            <a href="/submit-client-request" class="btn">Nueva Petición</a>
+            <a href="/logout" class="btn btn-danger">Cerrar Sesión</a>
+        </section>
+    </main>
+    <footer>
+        
+    </footer>
 </body>
 </html>

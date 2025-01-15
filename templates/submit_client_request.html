@@ -4,20 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Client Request</title>
+    <link rel="stylesheet" href="/static/styles.css">
+
 </head>
 <body>
-    <h1>Submit Client Request</h1>
+    <h1>Nueva Petición</h1>
     <form action="/submit-client-request" method="POST">
-        <label for="requirements">Describe Your Requirements:</label>
+        <label for="requirements">Describe lo que necesitas: </label>
         <textarea id="requirements" name="requirements" required></textarea>
 
-        <label for="budget">Estimated Budget:</label>
+        <label for="budget">Cantidad para dedicar a la impresión:</label>
         <input type="number" id="budget" name="budget" step="0.01" required>
 
-        <label for="community">Select Community:</label>
+        <label for="community">Selecciona Comunidad:</label>
         <select id="community" name="community" required onchange="updateProvinces()">
-            <option value="" disabled selected>Select Community</option>
-            <option value="Andalusia">Andalusia</option>
+            <option value="" disabled selected>Selecciona Comunidadunity</option>
+            <option value="Andalusia">Andalucía</option>
             <option value="Aragon">Aragon</option>
             <option value="Asturias">Asturias</option>
             <option value="Islas Baleares">Islas Baleares</option>
@@ -38,25 +40,25 @@
             <option value="Melilla">Melilla</option>
         </select>
 
-        <label for="province">Select Province:</label>
+        <label for="province">Selecciona Provincia:</label>
         <select id="province" name="province" required>
-            <option value="" disabled selected>Select Province</option>
+            <option value="" disabled selected>Selecciona Provincia</option>
         </select>
 
-        <label for="materials">Select Materials:</label>
+        <label for="materials">Selecciona Materiales:</label>
         <select id="materials" name="materials[]" multiple required onchange="toggleOtherMaterial()">
             <option value="PLA">PLA</option>
             <option value="ABS">ABS</option>
             <option value="PETG">PETG</option>
-            <option value="Other">Other</option>
+            <option value="Other">Otro</option>
         </select>
 
         <div id="other-material" style="display: none;">
-            <label for="other_material">Specify Other Material:</label>
+            <label for="other_material">Especifica Material:</label>
             <input type="text" id="other_material" name="other_material">
         </div>
 
-        <button type="submit">Submit Request</button>
+        <button type="submit">Enviar Petición</button>
     </form>
 
     <script>
