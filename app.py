@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, session, url_for, flash
+from flask.cli import load_dotenv
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 
@@ -308,7 +309,10 @@ def reject_client(request_id):
 
 
 if __name__ == '__main__':
-    PORT = int(os.environ.get('PORT', 5000))  # Puerto que Railway proporciona
-    init_db()  # Inicializa la base de datos
-    app.run(host='0.0.0.0', port=PORT, debug=True)
+    PORT = int(os.environ.get("PORT", 5000))  # Puerto que Railway proporciona
+    # Solo inicializa la base de datos si estás ejecutando localmente
+    init_db()
+    # Ejecuta la app sin modo de depuración en producción
+    app.run(host='0.0.0.0', port=PORT)
+
 
